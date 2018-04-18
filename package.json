@@ -1,0 +1,9 @@
+{
+  "name": "api.hofsaknust.com",
+  "version": "1.0.0",
+  "description": "api for hofsaknust",
+  "main": "index.js",
+  "repository": "https://github.com/godfredcs/api.hofsaknust.com.git",
+  "author": "godfredcs <addaiz.godfred@gmail.com>",
+  "license": "MIT"
+}
