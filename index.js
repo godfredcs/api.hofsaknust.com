@@ -1,34 +1,22 @@
+"use strict";
 const express = require('express');
 const app = express();
-const cors = require('cors');
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const { PORT } = require('./src/config');
 const setHeaders = require('./src/middlewares/setHeaders');
+
+const socket = require('./src/sockets');
 
 app.use(setHeaders);
 
 app.set('port', PORT);
 
-app.listen(app.get('port') || 5000, () => {
-    console.log('listening on ', PORT);
-});
-
 app.get('/', (req, res) => {
     res.send('hello how are you');
 });
 
-io.on('connection', socket => {
-    socket.emit('news', {
-        greeting: 'Saludos amigos'
-    });
-    
-    socket.on('received-post', data => {
-        console.log('The data from received-post is ', data);
-    });
+socket(io);
 
-    socket.on('disconnect', () => {
-        io.emit('User disconnected');
-    })
-});
+http.listen(app.get('port'), () => console.log('live'));
